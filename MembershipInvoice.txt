@@ -1,0 +1,42 @@
+public class MembershipInvoice {
+    @TestVisible
+    public Account account {get; set;}
+    @TestVisible
+    public Opportunity opportunity {get; set;}
+    
+    //public List<Opportunity> wonOppList {get; set;}
+   // public Double returnValue {get; set;}
+   @TestVisible
+    public String InvoiceNum {get; set;}
+    
+    @TestVisible
+    
+    public MembershipInvoice(){
+        
+        this.opportunity = [SELECT AccountId, Name, Description, Amount
+                           FROM Opportunity
+                           WHERE Id = :ApexPages.currentPage().getParameters().get('oppId')                             
+                          ];
+        
+        this.account = [SELECT Id, Name, BillingStreet, BillingCity, BillingState, 
+                               BillingPostalCode, BillingCountry
+                        FROM Account
+                        WHERE Id = :ApexPages.currentPage().getParameters().get('accId')
+                       ];
+        
+
+        
+        //double TotalAmount = 0.00;
+        //TotalAmount = TotalAmount + opportunity[0].Amount;
+        
+        //for(Integer i = 0; i < wonOppList.size(); i++){
+          //  TotalAmount = TotalAmount + wonOppList[i].Amount;
+        //}
+        
+        //returnValue = TotalAmount;
+        
+        Integer randomNumber = Integer.valueof((Math.random() * 1000));
+        InvoiceNum = 'INV'+ randomNumber;
+    }
+
+}

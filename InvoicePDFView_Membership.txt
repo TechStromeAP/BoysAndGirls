@@ -1,0 +1,145 @@
+<apex:page controller="MembershipInvoice" applyHtmlTag="false" showHeader="false" renderAs="PDF">
+    <html>
+        <head>
+            <style>
+                * {
+                box-sizing: border-box;
+                }
+                
+                .heading {
+                display: inline;
+                font-face:"Arial";
+                font-weight: bold;
+                }
+                
+                .heading--main {
+                font-size: 36px;
+                }
+                
+                .heading--sub {
+                font-size: 17px;
+                }
+                
+                .box--half {
+                float: left;
+                width: 50%;
+                }
+                
+                .box--threeByFour {
+                float: left;
+                width: 75%;
+                }
+                
+                .box--full {
+                float: left;
+                width: 100%;
+                }
+                
+                table {
+                margin-top: 25px;
+                width: 100%;
+                border: 2px;
+                }
+                
+                th {
+                background-color: #92d5f0;
+                font-align: left;
+                font-size: 17px;
+                font-weight: bold;
+                padding: 5px;
+                border: 2px;
+                }
+                
+                td {
+                font-size: 15px;
+                padding: 5px;
+                text-align: left;
+                width: 33%;
+                border: 2px;
+                }                
+            </style>
+        </head>
+        <body>
+            <center>
+            <img src="{!$Resource.Incoice_Symbol}"/><br/><br/><br/>
+            </center>		
+            <center>
+                <img src="{!$Resource.Invoice_Header}"/>
+            </center>
+            
+            	<br /><br />
+                <div class="box--half">
+                <h2 class="heading heading--sub">FROM:</h2>
+                    <span style="font-size:15px font-face:Arial">Boys and Girls Clubs (NI)</span>
+                <br />
+                <span>22 Stockmans Way</span>
+                <br />
+                <span>Musgrave Park Industrial Estate</span>
+                <br />
+                <span>Belfast BT9 7JU</span>
+            </div>
+            <div align='right' class="box--half">
+                <h2 class="heading heading--sub">Date:</h2>
+                <span>{!DAY(TODAY())}/{!MONTH(TODAY())}/{!YEAR(TODAY())}</span>
+                <br />
+                <h2 class="heading heading--sub">Number:</h2>
+                <span>{!InvoiceNum}</span>
+                <br />
+            </div>
+            <br /><br /><br /><br /><br /><br />
+            <div class="box--half">
+                <h2 class="heading heading--sub">TO:</h2>
+                <span>{!account.Name}</span>
+                <br />
+                <span>{!account.BillingStreet}</span>
+                <br />
+                <span>{!account.BillingCity}&nbsp;{!account.BillingState}&nbsp;{!account.BillingPostalCode}</span>
+            </div>
+            <div class="box--full">
+                <!--<h2 class="heading heading--sub">Invoiced</h2>-->
+                <table style='border: 1px solid Black'>
+                    <tr>
+                        <th span="1" style="width: 70%;">Description</th>
+                        <th span="1" style="width: 30%;">Amount (£)</th>
+                    </tr>
+                    
+                    <tr>
+                            <td >{!opportunity.Name}. {!opportunity.Description}</td>
+                            <td style="text-align: right;">£{!opportunity.Amount}</td>
+                    </tr>
+                    
+                    <!--<apex:repeat value="{!wonOppList}" var="wonOpp">
+                        <tr>
+                            <td >{!wonOpp.Name}</td>
+                            <td >{!wonOpp.Amount} £</td>-->
+                            <!--<td>{!MONTH(wonOpp.CloseDate)}-{!DAY(wonOpp.CloseDate)}-{!YEAR(wonOpp.CloseDate)}</td>-->
+                        <!--</tr>
+                    </apex:repeat>-->
+                    
+                    <tfoot>
+                        <!--<apex:repeat value="{!returnValue}" var="wonOpp">-->
+    					<tr>
+      						<td style="text-align: right;border-top: 1px solid Black">Total :</td>
+      						<td style="text-align: right;border-top: 1px solid Black">£{!opportunity.Amount}</td>
+    					</tr>
+                       <!--</apex:repeat>-->
+  				   </tfoot>
+                    
+                </table>
+                <br /><br /><br />
+            </div>
+            <div class="box--threeByFour">
+                <span>Please send cheque payable to Boys and Girls Clubs to address above </span>
+                <br />
+                <span>OR</span>
+                <br />
+                <span>BACS Details</span>
+                <br />
+                <span>Sort Code: 95-01-49</span>
+                <br />
+                <span>Account No: 00078905</span>
+                <br />
+            </div>
+        </body>
+    </html>
+</apex:page>
